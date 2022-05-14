@@ -1,0 +1,21 @@
+def non_increasing_tst(ts, delta):
+    # TODO
+    '''check differencies between successive integers is bigger than delta'''
+    # use 'num' list for 'mns' time series
+    num =[]
+    # use 'i' to count index of 'ts' list
+    for i in range(len(ts) - 1): 
+        mns = int(ts[i + 1]) - int(ts[i])
+        i += 1
+        num.append(mns)
+        
+    # check if num values is equal to or smaller than max number of 'num'
+    if max(num) <= delta:  
+        return True
+    else:
+        return False
+    
+    
+''' Takes list of time series values `ts` and threshold `delta`.
+        Returns False if any consecutive time series values increase by more 
+        than `delta`, returns True otherwise'''
