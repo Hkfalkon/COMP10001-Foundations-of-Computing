@@ -1,0 +1,25 @@
+def closest_tst(ts, ts_list):
+    # TODO
+    '''calculate the smallest distance'''
+    from math import sqrt
+    import math
+    # use dic to make a empty list for 'distance'
+    dic = []
+    # use 'numlist' to address list
+    # use 'count' to calculate index of list in 'ts_list'
+    # use num for index in 'ts' list
+    # use sqrt to calculate list that has the smallest distance
+    for numlist in ts_list:
+        for count in range(len(ts_list)):
+            numlist = ts_list[count]        
+            mean = (abs(ts[0] - numlist[0]) + abs(ts[1] - numlist[1])
+                   + abs(ts[2] - numlist[2]) + abs(ts[3] - numlist[3])) / 4
+            for num in range(len(ts)):
+                distance = math.sqrt((
+                    (abs(ts[0] - numlist[0]) - abs(mean)) ** 2
+                    + (abs(ts[1] - numlist[1]) - abs(mean)) ** 2 
+                    + (abs(ts[2] - numlist[2]) - abs(mean)) ** 2
+                    + (abs(ts[3] - numlist[3]) - abs(mean)) ** 2) / 4)               
+            dic.append(distance)
+        count += 1
+        return dic.index(min(dic))
