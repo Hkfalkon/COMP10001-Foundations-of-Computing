@@ -1,0 +1,43 @@
+def anomaly_tst(ts, w, threshold):
+    # TODO
+    '''calculate mean distance depending w then get index of the index 
+    of the first such time series or -1if no subsequence has a mean distance 
+    above the threshold'''
+    # use 'new_list' a empty list for arranged time series list by 'w'
+    # make new list of subsequence
+    new_list = []
+    if len(ts) >= 2:
+        for count in range(0, len(ts) - w + 1):
+            numlist = ts[count:w + count]
+            new_list.append(numlist)
+        count += 1
+    
+    # calculate the mean distance of the subsequences between each other
+    # 'mean' list in 'mean_list_complete' 
+    # get mean distance 'euclidean' 
+    import math
+    import numpy as np
+    euclidean = 0
+    mean_list_complete = []
+    if w > 0:
+        for i in range(len(new_list)):
+            euclidean_list = []
+            for j in range(len(new_list)):
+                for k in range(w):
+                    euclidean += pow((new_list[i][k] - new_list[j][k]), 2)
+                euclidean_list.append(math.sqrt(euclidean))
+                euclidean = 0
+            euclidean_list = np.array(euclidean_list)      
+            mean = sum(euclidean_list) / (len(euclidean_list) - 1)
+            mean_list_complete.append(mean)
+    
+    # compare mean in 'mean_list_complete' with 'threshold' 
+    # to return index of max mean distance if bigger than threshold
+    # if not, return '-1'
+    if threshold > 0:
+        for result_mean in mean_list_complete:
+            if result_mean >= threshold:
+                return mean_list_complete.index(max(mean_list_complete))
+        return -1
+    
+    
