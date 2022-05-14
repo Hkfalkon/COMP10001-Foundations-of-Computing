@@ -1,0 +1,30 @@
+def execute2_lds(plan, start, capacity):
+    # TODO implement this function.
+    '''takes a 'plan' in our language as a list of moves, an 
+    initial 'start' location of our truck, and the (integer) 'capacity' 
+    of our truck, and returns an integer corresponding to distance travelled 
+    by the truck to execute the given plan.'''
+    
+    # Make split two methods to gain the distance of move
+    # One is for move of truck to other dot in other tuple
+    # Another is for move of truck in the same tuple considering the case 
+    # multiple trips between the pick up and drop off locations if 
+    # number of boxes is bigger than the capacity of the truck.
+    
+    import math
+    result = 0
+    x, y = start
+    for movement in plan:
+        result += abs(x - movement[1][0]) + abs(y - movement[1][1])
+        x, y = movement[2]                
+    
+    for movement in plan:
+        boxes = movement[0]
+        rest = math.ceil(boxes / capacity)
+        for i in range(1, len(movement) - 1):
+            result += (2 * rest - 1) * (abs(movement[i][0] 
+                                                - movement[i + 1][0]) 
+                                            + abs(movement[i][1] 
+                                                  - movement[i + 1][1]))
+        
+    return result
